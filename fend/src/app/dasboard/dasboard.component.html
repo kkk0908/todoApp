@@ -1,0 +1,67 @@
+<div class="logoutSection">
+    <button class="btn btn-danger mx-auto" (click)="logout()"> Logout</button>
+</div>
+
+
+<div class="example-container">
+    <h2>To do</h2>
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.name}} <span
+                style="margin-left: auto;">{{item.deadline.slice(0,10)}}</span> </div>
+        <button type="button" class="btn btn-success example-box" id="addTask" data-toggle="modal"
+            data-target="#exampleModal">
+            Add New Task
+        </button>
+    </div>
+
+</div>
+
+<div class="example-container">
+    <h2>Done</h2>
+
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.name}} </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="TaskFormGroup" (ngSubmit)="taskFormSubmit()">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Task Name</label>
+                        <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter Task Name" formControlName="name">
+                        <small *ngIf="name==true" id="emailHelp" class="form-text text-danger">Enter Task Name.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Deadline</label>
+                        <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Deadline"
+                            formControlName="deadline">
+                        <small *ngIf="deadline==true" id="emailHelp" class="form-text text-danger">Enter
+                            Deadline.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
